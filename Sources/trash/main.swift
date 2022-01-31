@@ -14,6 +14,7 @@ let r: String = isTERM ? "\u{001B}[0m" : "" // Reset
 
 func stdout(_ message: String) { fputs("\(message)\n", stdout) }
 func stderr(_ message: String) { fputs("\(e)\(message)\(r)\n", stderr) }
+func advise(_ message: String) { fputs("\(e)\(message)\(r)\n", stderr); exit(EXIT_FAILURE) }
 
 func moveToTrash(fileURLs: [URL]) {
     for fileURL in fileURLs {
@@ -41,12 +42,13 @@ func moveToTrash(fileURLs: [URL]) {
     }
     event.setParam(fileList, forKeyword: keyDirectObject)
 
-    /// Seems it doesn't throw error even if a URL doesn't exist.
+    /// Seems it doesn't throw error even if a URL doesn't exist,
+    /// hence 'checkResourceIsReachable' at the beginning.
     do {
         try event.sendEvent(options: .noReply, timeout: TimeInterval(kAEDefaultTimeout))
     } catch let error as NSError {
         if case -600 = error.code {
-            stderr("Finder is not running.")
+            advise("Finder is not running.")
         } else {
             stderr(error.description) // .localizedDescription gives much less information.
         }
@@ -61,7 +63,7 @@ var stdinFileURLs: [URL] {
         components.append(line)
     }
     if components.isEmpty {
-        stderr("Failed to read stdin.")
+        advise("Failed to read stdin.")
     }
     return components.map(URL.init(fileURLWithPath:))
 }
