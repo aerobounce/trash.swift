@@ -57,9 +57,8 @@ let arguments: [String] = CommandLine.arguments.dropFirst().map { $0 }
 var stdinFileURLs: [URL] {
     var components: [String] = []
     while let line: String = readLine() {
-        components += line
-            .components(separatedBy: " ")
-            .filter { !$0.isEmpty && $0 != " " }
+        guard !line.isEmpty, line != " " else { continue }
+        components.append(line)
     }
     if components.isEmpty {
         stderr("Failed to read stdin.")
