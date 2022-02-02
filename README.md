@@ -5,7 +5,8 @@
 [![][badge-tag]][tags]
 
 Pure Swift CLI to move objects to the trash in the same manner as the Finder.\
-You can `Undo` or `⌘+Z` to put back.
+You can `Undo` or `⌘+Z` to put back.\
+Stand alone executable Swift program.
 
 ## Install
 
