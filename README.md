@@ -11,7 +11,7 @@ Stand alone executable Swift program.
 ## Install
 
 ```sh
-brew install "aerobounce/tap/trash"
+brew install aerobounce/tap/trash
 ```
 
 
