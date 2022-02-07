@@ -14,7 +14,7 @@ let r: String = isTERM ? "\u{001B}[0m" : "" // Reset
 
 func stdout(_ message: String) { fputs("\(message)\n", stdout) }
 func stderr(_ message: String) { fputs("\(e)\(message)\(r)\n", stderr) }
-func advise(_ message: String) { fputs("\(e)\(message)\(r)\n", stderr); exit(EXIT_FAILURE) }
+func advise(_ message: String) -> Never { stderr(message); exit(EXIT_FAILURE) }
 
 func moveToTrash(fileURLs: [URL]) {
     for fileURL in fileURLs {
